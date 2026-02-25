@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Piloto FEG - Cronograma de Aulas</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Piloto de Cronograma - Período da Manhã (FEG)</h1>
+      <p>
+        Configure professores, cargas por turma e bloqueios. Depois gere a sugestão automática e faça
+        ajustes por arrastar e soltar.
+      </p>
+    </header>
+
+    <main>
+      <section class="panel teacher-panel">
+        <h2>Cadastro de professores</h2>
+        <form id="teacher-form">
+          <div class="form-row">
+            <label for="teacher-name">Nome</label>
+            <input id="teacher-name" required placeholder="Ex.: Ana Souza" />
+          </div>
+
+          <div class="form-row">
+            <label for="teacher-subject">Disciplina</label>
+            <input id="teacher-subject" required placeholder="Ex.: Matemática" />
+          </div>
+
+          <div class="form-row">
+            <label for="teacher-loads">Aulas por turma (formato: turma=quantidade; ...)</label>
+            <textarea
+              id="teacher-loads"
+              required
+              placeholder="Ex.: 6A=4;6B=4;7A=3;1EMA=2"
+            ></textarea>
+          </div>
+
+          <fieldset>
+            <legend>Bloqueios de disponibilidade (dia/slot)</legend>
+            <div id="block-grid" class="block-grid"></div>
+          </fieldset>
+
+          <button type="submit">Adicionar professor</button>
+        </form>
+
+        <h3>Professores cadastrados</h3>
+        <ul id="teacher-list" class="teacher-list"></ul>
+      </section>
+
+      <section class="panel schedule-panel">
+        <div class="toolbar">
+          <label for="class-select">Turma:</label>
+          <select id="class-select"></select>
+          <button id="generate-btn">Gerar combinação de horários</button>
+          <button id="clear-btn">Limpar grade da turma</button>
+        </div>
+
+        <div id="alerts" class="alerts" aria-live="polite"></div>
+
+        <div id="teacher-pool" class="teacher-pool">
+          <h3>Aulas disponíveis para alocar</h3>
+          <p class="hint">Arraste para um slot da grade ou de volta para cá para remanejar.</p>
+          <div id="pool-cards" class="pool-cards"></div>
+        </div>
+
+        <div class="table-wrap">
+          <table id="schedule-table">
+            <thead>
+              <tr>
+                <th>Slot</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <template id="lesson-card-template">
+      <div class="lesson-card" draggable="true"></div>
+    </template>
+
+    <script src="app.js"></script>
+  </body>
+</html>
